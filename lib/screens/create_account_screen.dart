@@ -1,21 +1,20 @@
-import 'package:firebase/screens/create_account_screen.dart';
 import 'package:firebase/services/auth_service.dart';
 import 'package:firebase/widgets/comman_button.dart';
 import 'package:firebase/widgets/comman_textfiled.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
+class CreateAccount extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _CreateAccountState createState() => _CreateAccountState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _CreateAccountState extends State<CreateAccount> {
+  TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -24,23 +23,26 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Login Now',
+              'Create Account',
               style: commanHedearText(fontSize: 35),
             ),
             SizedBox(
               height: 30,
             ),
             commanTextfiledDecoration(
-              hintText: 'Email Address',
-              controller: emailController,
+              hintText: 'Username',
+              controller: usernameController,
             ),
             SizedBox(
               height: 15,
             ),
             commanTextfiledDecoration(
-              hintText: 'Password',
-              controller: passwordController,
+                hintText: 'Email Address', controller: emailController),
+            SizedBox(
+              height: 15,
             ),
+            commanTextfiledDecoration(
+                hintText: 'Password', controller: passwordController),
             SizedBox(
               height: 15,
             ),
@@ -48,23 +50,21 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Don't have a Account ?",
+                  "Do you Have Account ?",
                   style: commanHedearText(fontSize: 15),
                 ),
                 commanTextButtonDecoration(
-                    buttonText: 'Create Account',
+                    buttonText: 'Login Now',
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CreateAccount(),
-                      ));
+                      Navigator.of(context).pop();
                     })
               ],
             ),
             commanButtonDecoration(
               context: context,
-              buttonText: 'LOGIN',
+              buttonText: 'Create Account',
               onPressed: () async {
-                await signIn(
+                await signUp(
                     emailController.text, passwordController.text, context);
               },
             )
